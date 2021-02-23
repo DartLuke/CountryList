@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Country List</string>
+    <string name="title_activity_border_counries">Border Counries</string>
+    <!-- Strings used for fragments for navigation -->
+
+</resources>
