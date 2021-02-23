@@ -1,19 +1,17 @@
-package com.countrylist.UI.MainActivity
+package com.countrylist.ui.mainactivity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.countrylist.Adapters.CountryAdapter
+import com.countrylist.ui.adapters.CountryAdapter
 import com.countrylist.R
-import com.countrylist.UI.BorderCountriesActivity.BorderCountriesActivity
+import com.countrylist.ui.bordercountriesactivity.BorderCountriesActivity
 import com.countrylist.model.Country
-import com.countrylist.utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 

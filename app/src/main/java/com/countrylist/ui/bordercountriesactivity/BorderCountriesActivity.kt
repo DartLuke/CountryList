@@ -1,23 +1,16 @@
-package com.countrylist.UI.BorderCountriesActivity
+package com.countrylist.ui.bordercountriesactivity
 
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.countrylist.Adapters.CountryAdapter
+import com.countrylist.ui.adapters.CountryAdapter
 import com.countrylist.R
-import com.countrylist.UI.MainActivity.BORDER_COUNTRIES
-import com.countrylist.UI.MainActivity.MainViewModel
+import com.countrylist.ui.mainactivity.BORDER_COUNTRIES
 import com.countrylist.model.Country
-import com.countrylist.utils.Utils
 import kotlinx.android.synthetic.main.activity_border_counries.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.countries_recyclerView
 import kotlinx.android.synthetic.main.activity_main.progressBar
 
 class BorderCountriesActivity : AppCompatActivity(), CountryAdapter.OnClickListener {

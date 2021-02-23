@@ -1,6 +1,6 @@
-package com.countrylist.Api
+package com.countrylist.api
 
-import com.google.gson.Gson
+import com.countrylist.Api.Api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

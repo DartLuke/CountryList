@@ -1,4 +1,4 @@
-package com.countrylist.Adapters
+package com.countrylist.ui.adapters
 
 import android.util.Log
 import android.view.LayoutInflater

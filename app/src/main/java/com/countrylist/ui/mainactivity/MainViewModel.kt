@@ -1,13 +1,12 @@
-package com.countrylist.UI.MainActivity
+package com.countrylist.ui.mainactivity
 
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.countrylist.Api.RetrofitBuilder
+import com.countrylist.api.RetrofitBuilder
 import com.countrylist.model.Country
-import com.countrylist.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
