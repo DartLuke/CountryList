@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Country List</string>
-    <string name="title_activity_border_counries">Border Counries</string>
-    <!-- Strings used for fragments for navigation -->
+    <string name="title_activity_border_counries">Border Countries</string>
 
+    <string name="size">Size: </string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_area">Sort by area</string>
 </resources>

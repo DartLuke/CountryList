@@ -12,20 +12,32 @@ import kotlinx.coroutines.launch
 
 class BorderCountriesViewModel: ViewModel()
 {
-
+    private val TAG = "BorderCountriesViewModel"
+    val isDescentbyCountry = MutableLiveData(false)
+    val isDescentbyArea = MutableLiveData(false)
     val countries = MutableLiveData<List<Country>>()
     val isLoading = MutableLiveData<Int>()
+    val errorMessage = MutableLiveData<String>()
+    val countryName=MutableLiveData<String>()
 
-    fun getBorderCountries(borderCountries: String){
+    fun sortByCountry() {
+        isDescentbyCountry.value = !isDescentbyCountry.value!!
+    }
+
+    fun sortByArea() {
+        isDescentbyArea.value = !isDescentbyArea.value!!
+    }
+
+    fun getBorderCountries(borderCountries: String, countryName_:String){
         isLoading.value = View.VISIBLE
         viewModelScope.launch(Dispatchers.IO) {
-
             try {
                 val result = RetrofitBuilder.api.getCountriesByCode(borderCountries)
-
                 countries.postValue(result)
-            } catch (exp: Exception) {
-                Log.e("Test", exp.message)
+                countryName.postValue(countryName_)
+           } catch (exp: Exception) {
+                errorMessage.value = "Error: $errorMessage"
+                Log.e(TAG, exp.message)
             } finally {
                 isLoading.postValue(View.GONE)
             }

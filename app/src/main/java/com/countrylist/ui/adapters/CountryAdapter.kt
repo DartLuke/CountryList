@@ -1,6 +1,5 @@
 package com.countrylist.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +14,14 @@ class CountryAdapter(
 ) :
     RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
 
-    private var sortByAreaDescent: Boolean=false
+    private var sortByAreaDescent: Boolean = false
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(country: Country, onClickListener: OnClickListener) {
             itemView.apply {
                 country_name.text = country.name
                 country_native_name.text = country.nativeName
-                country_region.text= country.area.toString()
+                country_area.text = country.area.toString()
                 itemView.setOnClickListener { onClickListener.onClickItem(country) }
             }
         }
@@ -43,28 +42,25 @@ class CountryAdapter(
             clear()
             addAll(countryList)
         }
-
         notifyDataSetChanged()
     }
 
-    fun sortByCounries()
-    {
-        countryList.sortByDescending { country -> country.name  }
+    fun sortByCounries(sortByDescent: Boolean) {
+        // countryList.sortByDescending { country -> country.name  }
+
+        if (sortByDescent)
+            countryList.sortByDescending { country -> country.name }
+        else
+            countryList.sortBy { country -> country.name }
+        notifyDataSetChanged()
     }
 
-    fun sortByArea()
-    {
-Log.v("Test",sortByAreaDescent.toString())
-        sortByAreaDescent = if (sortByAreaDescent) {
+    fun sortByArea(sortByDescent: Boolean) {
+        if (sortByDescent)
             countryList.sortByDescending { country -> country.area }
-            false
-        } else {
+        else
             countryList.sortBy { country -> country.area }
-            true
-        }
-        Log.v("test",countryList.toString())
         notifyDataSetChanged()
-
     }
 
     interface OnClickListener {

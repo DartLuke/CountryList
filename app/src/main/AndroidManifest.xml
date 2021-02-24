@@ -14,7 +14,7 @@
         <activity
             android:name=".ui.bordercountriesactivity.BorderCountriesActivity"
             android:label="@string/title_activity_border_counries"
-            android:theme="@style/NoActionBar"></activity>
+            ></activity>
         <activity android:name=".ui.mainactivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

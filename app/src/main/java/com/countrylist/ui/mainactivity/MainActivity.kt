@@ -15,7 +15,8 @@ import com.countrylist.model.Country
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-const val BORDER_COUNTRIES = "a"
+const val BORDER_COUNTRIES = "BORDER_COUNTRIES"
+const val COUNTRY_NAME = "COUNTRY_NAME"
 
 class MainActivity : AppCompatActivity(), CountryAdapter.OnClickListener {
     private lateinit var viewModel: MainViewModel
@@ -33,12 +34,12 @@ class MainActivity : AppCompatActivity(), CountryAdapter.OnClickListener {
     }
 
     private fun setupButtons() {
-        sortButton.setOnClickListener {
-            if (adapter!=null)adapter.sortByArea() }
+        sortByNameButton.setOnClickListener { viewModel.sortByCountry() }
+        sortByAreaButton.setOnClickListener { viewModel.sortByArea() }
     }
 
     private fun setupUI() {
-         setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
         adapter = CountryAdapter(arrayListOf(), this);
         countries_recyclerView.layoutManager = LinearLayoutManager(this)
         countries_recyclerView.addItemDecoration(
@@ -51,16 +52,44 @@ class MainActivity : AppCompatActivity(), CountryAdapter.OnClickListener {
     }
 
     private fun setupObservers() {
+
+        viewModel.isDescentbyCountry.observe(this, Observer {
+            if (adapter != null) adapter.sortByCounries(it)
+            if (!it) sortByNameButton.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                0,
+                R.drawable.ic_down,
+                0
+            )
+            else sortByNameButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up, 0)
+        })
+
+        viewModel.isDescentbyArea.observe(this, Observer {
+            if (adapter != null) adapter.sortByArea(it)
+            if (!it) sortByAreaButton.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                0,
+                R.drawable.ic_down,
+                0
+            )
+            else sortByAreaButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up, 0)
+        })
+
         viewModel.isLoading.observe(this, Observer {
             progressBar.visibility = it
         })
 
         viewModel.countries.observe(this, Observer {
-            changeLisViewData(it)
+            changeListViewData(it)
         })
+
+        viewModel.errorMessage.observe(
+            this,
+            Observer { Toast.makeText(this, it, Toast.LENGTH_LONG).show() })
+
     }
 
-    private fun changeLisViewData(countries: List<Country>) {
+    private fun changeListViewData(countries: List<Country>) {
         adapter.changeData(countries)
     }
 
@@ -72,17 +101,17 @@ class MainActivity : AppCompatActivity(), CountryAdapter.OnClickListener {
 
     }
 
-    private fun showBorderCountries(country:Country) {
+    private fun showBorderCountries(country: Country) {
         val intent = Intent(this, BorderCountriesActivity::class.java).apply {
-            val borderCountries =  country.borders.reduce { acc, s -> "$acc;$s" }
+            val borderCountries = country.borders.reduce { acc, s -> "$acc;$s" }
             putExtra(BORDER_COUNTRIES, borderCountries)
+            putExtra(COUNTRY_NAME, country.name)
         }
         startActivity(intent)
 
     }
 
-    private fun noBorderCountries(countryName:String)
-    {
+    private fun noBorderCountries(countryName: String) {
         val text = "$countryName doesn't have neighbors"
         val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(applicationContext, text, duration)
@@ -91,6 +120,6 @@ class MainActivity : AppCompatActivity(), CountryAdapter.OnClickListener {
 
     override fun onBackPressed() {
         //do nothing
-      //  super.onBackPressed()
+        //  super.onBackPressed()
     }
 }
